@@ -9,6 +9,9 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+    
+    
     <!-- Bootstrap fim -->
 
     <!-- Font Awesome -->
@@ -43,7 +46,7 @@
       </div>
     </nav>
 
-    <div class="container">
+    <div class="container" >
       <div class="row">
         <div class="col mb-5">
           <h1 class="display-4">Register new expense</h1>
@@ -61,15 +64,15 @@
         <div class="col-md-2">
           <select class="form-control" id="month">
             <option value="">Month</option>
-            <option value="1">January</option>
-            <option value="2">February</option>
-            <option value="3">March</option>
-            <option value="4">April</option>
-            <option value="5">May</option>
-            <option value="6">June</option>
-            <option value="7">July</option>
-            <option value="8">August</option>
-            <option value="9">September</option>
+            <option value="01">January</option>
+            <option value="02">February</option>
+            <option value="03">March</option>
+            <option value="04">April</option>
+            <option value="05">May</option>
+            <option value="06">June</option>
+            <option value="07">July</option>
+            <option value="08">August</option>
+            <option value="09">September</option>
             <option value="10">October</option>
             <option value="11">November</option>
             <option value="12">December</option>
@@ -108,6 +111,28 @@
         </div>
       </div>
     </div>
+
+
+    <!-- Modal validate failed or success -->
+    <div class="modal fade" id="modalRegisterExpense" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div id="modalTitleDIV">
+            <h5 class="modal-title" id="modalTitle">Save ERROR</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="modalContent">          
+          </div>
+          <div class="modal-footer">            
+            <button type="button" class="" id="modalButton" data-dismiss="modal">Back</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
   </body>	
 
 </html>
