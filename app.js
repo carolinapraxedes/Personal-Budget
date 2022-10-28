@@ -15,14 +15,51 @@
     }
 
     validateData(){
+        //percorre todos os valores para verificar os valores
+
+        let dayFail;
+        let fielFail;
+
         for(let i in this){
+            //recupera todos os atributos do objecto expense
+            //o operdor i recupera os atributos this[i] = this.atributos
+            
             if(this[i]== undefined || this[i] == '' || this[i] == null){
+                console.log("entrou no null") 
+                if(i = this.day){
+                    console.log(this.day)
+                    if(i <1 || i>30){
+                        alert('data invalida')
+                        
+                    }
+                }              
                 return false
+                
             }
+
             //this[i] recover the value of variable i
         }
+    
+        console.log("nao é false") 
         return true
-    }
+    };
+
+
+
+    // validateDay(){
+   
+    //     if(this.validateData == true){
+    //         console.log('o numero nao é null')
+    //         if (this.day.value<1 || this.day.value>31){
+    //             console.log('data invalida')
+    //             return false
+    //         }
+    //     }
+
+        
+    //     return true
+    // }
+
  }
 
  class DataBaseClass {
@@ -98,38 +135,7 @@
 
 
 
-                
-
-        // console.log(expense)
-        // console.log(filtersExpenses)
-
-        //  //year and others attributes dont be null 
-        // if(expense.year != ''){
-        //     console.log('entrou ano')
-        //     filtersExpenses = filtersExpenses.filter(expenseSearchDB => expenseSearchDB.year == expense.year)
-        // }
-        // if(expense.month != ''){
-        //     console.log('entrou mes')
-        //     filtersExpenses = filtersExpenses.filter(expenseSearchDB => expenseSearchDB.month == expense.month)
-        // }
-        // if(expense.day != ''){
-        //     console.log('entrou day')
-        //     filtersExpenses = filtersExpenses.filter(expenseSearchDB => expenseSearchDB.day == expense.day)
-        // }
-        // if(expense.type != ''){
-        //     console.log('entrou type')
-        //     filtersExpenses = filtersExpenses.filter(expenseSearchDB => expenseSearchDB.type == expense.type)
-        // }
-        // if(expense.description != ''){
-        //     console.log('entrou description')
-        //     filtersExpenses = filtersExpenses.filter(expenseSearchDB => expenseSearchDB.description == expense.description)
-        // }
         
-        // if(expense.valueExpense != ''){
-        //     console.log('entrou valor')
-        //     filtersExpenses = filtersExpenses.filter(expenseSearchDB => expenseSearchDB.valueExpense == expense.valueExpense)
-        // }
-
     }
 }
 
@@ -154,9 +160,9 @@ function registerExpense(){
         valueExpense.value
         )
 
-    if(expense.validateData()){
+    if(expense.validateData() ){
         //success dialog
-        DB.register(expense)
+        /*DB.register(expense)*/
         document.getElementById('modalTitle').innerHTML = "Success";
         document.getElementById('modalTitleDIV').className = "modal-header text-success";
         document.getElementById('modalContent').innerHTML="Expense save";
@@ -173,15 +179,36 @@ function registerExpense(){
         valueExpense.value=''
 
     }else{
-        //error dialog
+        console.log('entrou no else')
         document.getElementById('modalTitle').innerHTML = "ERROR";
+        document.getElementById('modalTitleDIV').className = "modal-header text-danger";
+        document.getElementById('modalButton').className = "btn btn-danger";
+        let temp = document.getElementById('modalContent').innerHTML= "ALGO";
+        console.log('antes do if')
+        console.log(expense.validateData.dayFail)
+        if(expense.validateData.dayFail){
+            
+            temp = document.getElementById('modalContent').innerHTML= "DATA INVALIDA";
+           
+
+        }else if(expense.validateData.fielFail){
+            console.log('field')
+            temp = document.getElementById('modalContent').innerHTML= "INVALIDO ALGUM OUTRO CAMPO";
+        }
+        temp
+        console.log('depois do if')
+        $('#modalRegisterExpense').modal('show')
+        //error dialog
+       /* document.getElementById('modalTitle').innerHTML = "ERROR";
         document.getElementById('modalTitleDIV').className = "modal-header text-danger";
         document.getElementById('modalContent').innerHTML= "Fill the required fields";
         document.getElementById('modalButton').className = "btn btn-danger";
 
-        $('#modalRegisterExpense').modal('show')
+        $('#modalRegisterExpense').modal('show')*/
 
     }   
+
+
 }
 
 
@@ -239,11 +266,9 @@ function searchExpenses(){
     let yearSearch = document.getElementById('year').value
     let monthSearch = document.getElementById('month').value
     let daySearch = document.getElementById('day').value
-    let typeSearch = document.getElementById('type').value
-    let descriptionSearch = document.getElementById('description').value
-    let valueSearch = document.getElementById('valueExpense').value
 
-    let expenseSearch = new Expense(yearSearch,monthSearch,daySearch,typeSearch,descriptionSearch,valueSearch);
+
+    let expenseSearch = new Expense(yearSearch,monthSearch,daySearch);
 
     DB.search(expenseSearch)
 }
