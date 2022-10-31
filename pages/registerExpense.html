@@ -20,7 +20,7 @@
 
 	</head>
 
-  <body>
+  <body onload="Years()">
 
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-5">
@@ -55,7 +55,7 @@
 
       <div class="row mb-2">
         <div class="col-md-2">
-          <select class="form-control" id="year">
+          <select   class="form-control" id="year">
             <option value="">Year</option>
             <option value="2018">2018</option>
           </select>
@@ -80,7 +80,7 @@
         </div>
         
         <div class="col-md-2">
-          <input type="text" class="form-control" placeholder="Day" id="day" />
+          <input required type="number" min="1" max="31" maxlength="2" class="form-control" placeholder="Day" id="day" />
         </div>
 
         <div class="col-md-6">

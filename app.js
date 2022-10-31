@@ -1,3 +1,25 @@
+
+const getDate = new Date();
+const NowYear = getDate.getFullYear();
+
+
+function Years(){
+    let selectYear = document.getElementById('year');
+    //create new options for each year
+
+
+    let firstYear= parseInt(selectYear.children[1].value) +1
+    for(i=firstYear;i<=NowYear;i++){
+        
+        createOption = document.createElement("option");
+        createOption.textContent=i;
+        //put text in the option
+        createOption.value=i;
+        //put value in the option
+        selectYear.options.add(createOption)
+    }
+}
+
 /*
 |=====================================
 | Code from register expense
@@ -16,49 +38,38 @@
 
     validateData(){
         //percorre todos os valores para verificar os valores
+ 
 
-        let dayFail;
-        let fielFail;
+        for(let [i,k] of Object.entries(this) ){
+            //faz um loop dentro do object que o this está chamando verificando o valor de cada chave
 
-        for(let i in this){
-            //recupera todos os atributos do objecto expense
-            //o operdor i recupera os atributos this[i] = this.atributos
+            /*max day each month*/ 
+            let MaxDay= [31,
+                28,
+                31,
+                30,
+                31,
+                30,
+                31,
+                31,
+                30,
+                31,
+                30,
+                31
+            ];
+
+            if(this[i]== undefined || this[i] == '' || this[i] == null)
+                //verify if field is empty
+               return {erro:true,message:"Fill the required fields"};
+            if(this.day>MaxDay[this.month-1])
+                //verify if day field is valid
+                return {erro:true,message:"Invalid Day"};
             
-            if(this[i]== undefined || this[i] == '' || this[i] == null){
-                console.log("entrou no null") 
-                if(i = this.day){
-                    console.log(this.day)
-                    if(i <1 || i>30){
-                        alert('data invalida')
-                        
-                    }
-                }              
-                return false
-                
-            }
-
-            //this[i] recover the value of variable i
         }
-    
-        console.log("nao é false") 
-        return true
+
+        return {erro:false,message:''}
     };
 
-
-
-    // validateDay(){
-   
-    //     if(this.validateData == true){
-    //         console.log('o numero nao é null')
-    //         if (this.day.value<1 || this.day.value>31){
-    //             console.log('data invalida')
-    //             return false
-    //         }
-    //     }
-
-        
-    //     return true
-    // }
 
  }
 
@@ -111,8 +122,7 @@
 
 
     
-        console.log(expense)
-        console.log(filtersExpenses)
+
 
         if(expense.year != ''){
             console.log('entrou em filtro ano')
@@ -127,10 +137,6 @@
             filtersExpenses =filtersExpenses.filter(searchValue => searchValue.day == expense.day)
         }
 
-
-
-        console.log('passou do filtro')
-        console.log(filtersExpenses)
 
 
 
@@ -159,10 +165,12 @@ function registerExpense(){
         description.value,
         valueExpense.value
         )
+  
 
-    if(expense.validateData() ){
+    let validate = expense.validateData()
+    if(!validate.erro ){
         //success dialog
-        /*DB.register(expense)*/
+        DB.register(expense)
         document.getElementById('modalTitle').innerHTML = "Success";
         document.getElementById('modalTitleDIV').className = "modal-header text-success";
         document.getElementById('modalContent').innerHTML="Expense save";
@@ -179,32 +187,13 @@ function registerExpense(){
         valueExpense.value=''
 
     }else{
-        console.log('entrou no else')
+      
         document.getElementById('modalTitle').innerHTML = "ERROR";
         document.getElementById('modalTitleDIV').className = "modal-header text-danger";
         document.getElementById('modalButton').className = "btn btn-danger";
-        let temp = document.getElementById('modalContent').innerHTML= "ALGO";
-        console.log('antes do if')
-        console.log(expense.validateData.dayFail)
-        if(expense.validateData.dayFail){
-            
-            temp = document.getElementById('modalContent').innerHTML= "DATA INVALIDA";
-           
+        document.getElementById('modalContent').innerHTML= validate.message;
 
-        }else if(expense.validateData.fielFail){
-            console.log('field')
-            temp = document.getElementById('modalContent').innerHTML= "INVALIDO ALGUM OUTRO CAMPO";
-        }
-        temp
-        console.log('depois do if')
         $('#modalRegisterExpense').modal('show')
-        //error dialog
-       /* document.getElementById('modalTitle').innerHTML = "ERROR";
-        document.getElementById('modalTitleDIV').className = "modal-header text-danger";
-        document.getElementById('modalContent').innerHTML= "Fill the required fields";
-        document.getElementById('modalButton').className = "btn btn-danger";
-
-        $('#modalRegisterExpense').modal('show')*/
 
     }   
 
