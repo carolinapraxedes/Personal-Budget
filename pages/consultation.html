@@ -1,4 +1,4 @@
-<html>
+<html  lang="en">
 	<head>
     <meta charset="utf-8" />
 		<title>Personal Budget</title>
@@ -17,7 +17,7 @@
 
 	</head>
 
-  <body onload="ExpensesList()">
+  <body onload="ExpensesList(); Years();" >
 
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-5">
@@ -52,14 +52,14 @@
 
       <div class="row mb-2">
         <div class="col-md-3">
-          <select class="form-control" id="year">
+          <select class="form-control" id="year" aria-label="search expense by year">
             <option value="">Year</option>
             <option value="2018">2018</option>
           </select>
         </div>
 
         <div class="col-md-5">
-          <select class="form-control" id="month">
+          <select class="form-control" id="month" aria-label="search expense by month">
             <option value="">Month</option>
             <option value="01">January</option>
             <option value="02">February</option>
@@ -77,11 +77,11 @@
         </div>
         
         <div class="col-md-3">
-          <input type="text" class="form-control" placeholder="Day" id="day" />
+          <input type="text"  maxlength="2" class="form-control" placeholder="Day" aria-label="search expense by day" id="day" />
         </div>
 
         <div class="col-md-1 d-flex justify-content-end">
-          <button type="button" class="btn btn-primary" onclick="searchExpenses()">
+          <button type="button" class="btn btn-primary" aria-label="search" onclick="searchExpenses()">
             <i class="fas fa-search"></i>
           </button>
         </div>

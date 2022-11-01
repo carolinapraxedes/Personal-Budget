@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
 	<head>
     <meta charset="utf-8" />
 		<title>Personal Budget</title>
@@ -20,7 +20,7 @@
 
 	</head>
 
-  <body onload="Years()">
+  <body onload="Years()" >
 
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-5">
@@ -35,10 +35,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="registerExpense.html">Register</a>
+              <a class="nav-link" href="registerExpense.html" aria-label="Register Expense">Register</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="consultation.html">Consultation</a>
+              <a class="nav-link" href="consultation.html" aria-label="Open expense lists">Consultation</a>
             </li>
           </ul>
           
@@ -55,14 +55,14 @@
 
       <div class="row mb-2">
         <div class="col-md-2">
-          <select   class="form-control" id="year">
+          <select  class="form-control" id="year" aria-label="Amount(to the nearst BRL)">
             <option value="">Year</option>
             <option value="2018">2018</option>
           </select>
         </div>
 
         <div class="col-md-2">
-          <select class="form-control" id="month">
+          <select class="form-control" id="month" aria-label="Expense Month">
             <option value="">Month</option>
             <option value="01">January</option>
             <option value="02">February</option>
@@ -80,11 +80,11 @@
         </div>
         
         <div class="col-md-2">
-          <input required type="number" min="1" max="31" maxlength="2" class="form-control" placeholder="Day" id="day" />
+          <input  type="text"  maxlength="2" class="form-control" placeholder="Day" id="day" />
         </div>
 
         <div class="col-md-6">
-          <select class="form-control" id="type">
+          <select class="form-control" id="type" aria-label="Expense type">
             <option value="">Type</option>
             <option value="1">Food</option>
             <option value="2">Education</option>
@@ -100,12 +100,15 @@
           <input type="text" class="form-control" placeholder="Description" id="description" />
         </div>
 
-        <div class="col-md-2">
-          <input type="text" class="form-control" placeholder="Value" id="valueExpense" />
+        <div class="col-md-2 input-group ">
+          <div class="input-group-prepend">
+            <span class="input-group-text">R$</span>
+          </div>  
+          <input type="number" class="form-control" placeholder="0" id="valueExpense" />
         </div>
 
         <div class="col-md-2 d-flex justify-content-end">
-          <button type="button" class="btn btn-primary" onclick="registerExpense()">
+          <button type="button" class="btn btn-primary" aria-label="Save Expense" onclick="registerExpense()">
             <i class="fas fa-plus"></i>
           </button>
         </div>

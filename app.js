@@ -41,7 +41,7 @@ function Years(){
  
 
         for(let [i,k] of Object.entries(this) ){
-            //faz um loop dentro do object que o this está chamando verificando o valor de cada chave
+            //faz um loop dentro do object que o this está chamando, verificando o valor de cada chave
 
             /*max day each month*/ 
             let MaxDay= [31,
@@ -64,10 +64,12 @@ function Years(){
             if(this.day>MaxDay[this.month-1])
                 //verify if day field is valid
                 return {erro:true,message:"Invalid Day"};
+            if(this.valueExpense<1)
+                return {erro:true,message:"Value negative"}
             
         }
 
-        return {erro:false,message:''}
+        return {erro:false,message:'SALVO'}
     };
 
 
@@ -134,9 +136,10 @@ function Years(){
         }
         if(expense.day != ''){
             console.log('entrou em filtro dia')
+
             filtersExpenses =filtersExpenses.filter(searchValue => searchValue.day == expense.day)
         }
-
+        console.log(filtersExpenses)
 
 
 
@@ -173,7 +176,7 @@ function registerExpense(){
         DB.register(expense)
         document.getElementById('modalTitle').innerHTML = "Success";
         document.getElementById('modalTitleDIV').className = "modal-header text-success";
-        document.getElementById('modalContent').innerHTML="Expense save";
+        document.getElementById('modalContent').innerHTML= validate.message;
         document.getElementById('modalButton').className = "btn btn-success";
 
         $('#modalRegisterExpense').modal('show')
@@ -224,7 +227,15 @@ function ExpensesList(){
         let rowTable = expenseList.insertRow();
 
         //create td
-        rowTable.insertCell(0).innerHTML = `${contentExpense.day}/${contentExpense.month}/${contentExpense.year}` 
+        
+        if((contentExpense.day>=1 )&&(contentExpense.day<10)){
+            // put 0 before number if day<10
+            rowTable.insertCell(0).innerHTML =  `0${contentExpense.day}/${contentExpense.month}/${contentExpense.year}` 
+        }else{
+            rowTable.insertCell(0).innerHTML =  `${contentExpense.day}/${contentExpense.month}/${contentExpense.year}` 
+        }
+        
+        
         //0 = position cell
         
         //transform type value in phrases
@@ -260,4 +271,6 @@ function searchExpenses(){
     let expenseSearch = new Expense(yearSearch,monthSearch,daySearch);
 
     DB.search(expenseSearch)
+
+
 }
