@@ -64,12 +64,11 @@ function Years(){
             if(this.day>MaxDay[this.month-1])
                 //verify if day field is valid
                 return {erro:true,message:"Invalid Day"};
-            if(this.valueExpense<1)
-                return {erro:true,message:"Value negative"}
+
             
         }
 
-        return {erro:false,message:'SALVO'}
+        return {erro:false,message:'Save Expense'}
     };
 
 
@@ -110,6 +109,9 @@ function Years(){
             if(getExpense === null){
                 continue
             }
+
+            //get id expense
+            getExpense.id =i;
             //add expense in array
             expenseArray.push(getExpense);
 
@@ -139,12 +141,12 @@ function Years(){
 
             filtersExpenses =filtersExpenses.filter(searchValue => searchValue.day == expense.day)
         }
-        console.log(filtersExpenses)
-
-
-
-
         
+        return filtersExpenses;        
+    }
+
+    delete(id){
+        localStorage.removeItem(id)
     }
 }
 
@@ -210,13 +212,18 @@ function registerExpense(){
 |=====================================
 */
 //show list of expenses
-function ExpensesList(){
-    let expenses = Array();
+function ExpensesList(expenses = Array(),filter= false){
+    if(expenses.length==0 && filter == false){
+        //return all expenses,search = null
+        expenses = DB.allRegisters()
+    }
 
-    expenses = DB.allRegisters()
+
+   
 
     //select element tbody 
     let expenseList = document.getElementById('expenseListID')
+    expenseList.innerHTML=''
     
     //get dynamically list expense
     expenses.forEach(function(contentExpense){
@@ -257,9 +264,29 @@ function ExpensesList(){
         rowTable.insertCell(2).innerHTML = contentExpense.description
         rowTable.insertCell(3).innerHTML = contentExpense.valueExpense
 
+        //button delete
+        let btn = document.createElement("button")
+        btn.className= 'btn btn-danger'
+        btn.innerHTML= '<i class="fas fa-times"></i>'
+        btn.id = `idExpense${contentExpense.id}`
+        //delete expense
+        btn.onclick = function(){
+            let id = this.id.replace('idExpense','')            
+            DB.delete(id)
+            window.location.reload()
+        }
+        rowTable.insertCell(4).append(btn)
+        console.log(contentExpense)
+
         
     })
 }
+
+/*
+|=====================================
+| Code from search 
+|=====================================
+*/
 
 //search expenses
 function searchExpenses(){
@@ -270,7 +297,9 @@ function searchExpenses(){
 
     let expenseSearch = new Expense(yearSearch,monthSearch,daySearch);
 
-    DB.search(expenseSearch)
+    let expensesSearch = DB.search(expenseSearch);
+
+    this.ExpensesList(expensesSearch, true)
 
 
 }
